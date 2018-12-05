@@ -4,8 +4,18 @@ import java.util.Optional;
 
 public class Env {
 
-    public Env() {
+    private static Env instance;
+    public final String liveDataUrl;
 
+    public static Env getInstance() {
+        if(instance == null) {
+            instance = new Env();
+        }
+        return instance;
+    }
+
+    private Env() {
+        liveDataUrl = getEnv("LIVE_DATA_URL");
     }
 
     private String getEnv(String envName) {
