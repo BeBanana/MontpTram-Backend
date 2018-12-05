@@ -5,7 +5,11 @@ import java.util.Optional;
 public class Env {
 
     private static Env instance;
+
     public final String liveDataUrl;
+    public final String slackHook;
+    public final String secureKeystore;
+    public final String secureKeystorePassword;
 
     public static Env getInstance() {
         if(instance == null) {
@@ -16,6 +20,9 @@ public class Env {
 
     private Env() {
         liveDataUrl = getEnv("LIVE_DATA_URL");
+        slackHook = getEnv("SLACK_HOOK");
+        secureKeystore = getEnv("SECURE_KEYSTORE");
+        secureKeystorePassword = getEnv("SECURE_KEYSTORE_PASSWORD");
     }
 
     private String getEnv(String envName) {

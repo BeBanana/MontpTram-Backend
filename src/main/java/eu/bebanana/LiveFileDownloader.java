@@ -10,7 +10,6 @@ import org.apache.http.impl.client.HttpClients;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -27,7 +26,7 @@ public class LiveFileDownloader {
         update();
     }
 
-    private Optional<Path> downloadFile() {
+    private Path downloadFile() throws IOException {
         System.out.println("Downloading live data file");
         HttpGet httpGet = null;
         Path filePath = directory.resolve("liveData.txt");
@@ -41,14 +40,12 @@ public class LiveFileDownloader {
             if (imageEntity != null) {
                 FileUtils.copyInputStreamToFile(imageEntity.getContent(), filePath.toFile());
             }
-        } catch (IOException e) {
-            return Optional.empty();
         } finally {
             if(httpGet != null) {
                 httpGet.releaseConnection();
             }
         }
-        return Optional.of(filePath);
+        return filePath;
     }
 
     private void reschedule() {
@@ -60,11 +57,10 @@ public class LiveFileDownloader {
 
     private void update() {
         try {
-            Path path = downloadFile().orElseThrow(Exception::new);
+            Path path = downloadFile();
             listener.onNewFile(path);
         } catch (Exception e) {
             listener.onError(e);
-            e.printStackTrace();
         } finally {
             reschedule();
         }

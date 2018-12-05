@@ -11,7 +11,11 @@ sourceCompatibility = 1.8
 mainClassName = 'eu.bebanana.Application'
 
 repositories {
+    maven {
+        url  "https://dl.bintray.com/bebanana/Java"
+    }
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -20,6 +24,5 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.2'
     compile 'org.apache.httpcomponents:httpclient:4.5'
     compile group: 'commons-io', name: 'commons-io', version: '2.4'
-
-    compile 'eu.bebanana:Basics:1.0.0'
+    compile 'eu.bebanana:Basics:1.0.1'
 }
