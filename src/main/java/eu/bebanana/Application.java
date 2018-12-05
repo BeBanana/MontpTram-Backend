@@ -19,7 +19,8 @@ import static spark.Spark.post;
 public class Application {
 
     public static void main(String[] args) {
-        Spark.secure("/home/xavier/cert/keystore.p12", "1234", null, "1234");
+        Logger.log("Starting application");
+        Spark.secure(Env.getInstance().secureKeystore, Env.getInstance().secureKeystorePassword, null, Env.getInstance().secureKeystorePassword);
         Basics.init(Env.getInstance().slackHook);
         DataProvider dataProvider = new DataProvider();
         path("/api", () -> {
