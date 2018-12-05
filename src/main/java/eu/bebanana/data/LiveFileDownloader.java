@@ -1,5 +1,6 @@
-package eu.bebanana;
+package eu.bebanana.data;
 
+import eu.bebanana.Env;
 import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -14,14 +15,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class LiveFileDownloader {
+class LiveFileDownloader {
 
     private ScheduledExecutorService schedulerService;
     private static final Path directory = Paths.get("/tmp/");
 
     private Listener listener;
 
-    public LiveFileDownloader(Listener listener) {
+    LiveFileDownloader(Listener listener) {
         this.listener = listener;
         update();
     }
@@ -66,7 +67,7 @@ public class LiveFileDownloader {
         }
     }
 
-    public interface Listener {
+    interface Listener {
         void onNewFile(Path path);
         void onError(Exception e);
     }
