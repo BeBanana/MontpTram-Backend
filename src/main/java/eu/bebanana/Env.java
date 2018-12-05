@@ -10,6 +10,7 @@ public class Env {
     public final String slackHook;
     public final String secureKeystore;
     public final String secureKeystorePassword;
+    public final String apiKey;
 
     public static Env getInstance() {
         if(instance == null) {
@@ -23,6 +24,7 @@ public class Env {
         slackHook = getEnv("SLACK_HOOK");
         secureKeystore = getEnv("SECURE_KEYSTORE");
         secureKeystorePassword = getEnv("SECURE_KEYSTORE_PASSWORD");
+        apiKey = getEnv("API_KEY");
     }
 
     private String getEnv(String envName) {

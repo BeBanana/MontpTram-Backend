@@ -9,6 +9,15 @@ import java.util.Map;
 public class DataProvider implements DataManager.DataManagerListener {
 
     private Map<String, List<Live>> indexedLives = new HashMap<>();
+    private DataManager dataManager;
+
+    public DataProvider() {
+        this.dataManager = new DataManager(this);
+    }
+
+    public List<Live> getLivesFor(String stop, String line) {
+        return indexedLives.get(stop + "-" + line);
+    }
 
     @Override
     public void onNewData(final Map<String, List<Live>> indexedLives) {
