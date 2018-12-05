@@ -1,0 +1,22 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '2.0.4'
+    id 'java'
+    id 'application'
+}
+
+group 'eu.bebanana'
+version '1.0.0'
+
+sourceCompatibility = 1.8
+mainClassName = 'eu.bebanana.Application'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile "com.sparkjava:spark-core:2.7.2"
+    compileOnly 'org.projectlombok:lombok:1.18.2'
+    compile 'org.apache.httpcomponents:httpclient:4.5'
+}
