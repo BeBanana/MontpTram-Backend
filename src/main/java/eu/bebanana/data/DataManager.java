@@ -88,19 +88,21 @@ class DataManager {
                 Live live = new Live(optStop.get(), optLine.get(), fields[5], Integer.valueOf(fields[9]), Integer.valueOf(fields[6]));
 
                 // Index by stop
-                if(!tmpIndexedMap.containsKey(live.stop.name)) {
-                    tmpIndexedMap.put(live.stop.name, new ArrayList<>());
+                String stopKey = live.stop.name.toLowerCase();
+                if(!tmpIndexedMap.containsKey(stopKey)) {
+                    tmpIndexedMap.put(stopKey, new ArrayList<>());
                 }
-                tmpIndexedMap.get(live.stop.name).add(live);
+                tmpIndexedMap.get(stopKey).add(live);
 
                 // Index by line
-                if(!tmpIndexedMap.containsKey(live.line.name)){
-                    tmpIndexedMap.put(live.line.name, new ArrayList<>());
+                String lineKey = live.line.name.toLowerCase();
+                if(!tmpIndexedMap.containsKey(lineKey)){
+                    tmpIndexedMap.put(lineKey, new ArrayList<>());
                 }
-                tmpIndexedMap.get(live.line.name).add(live);
+                tmpIndexedMap.get(lineKey).add(live);
 
                 // Index by stop and line
-                String id = live.stop.name + "-" + live.line.name;
+                String id = live.stop.name.toLowerCase() + "-" + live.line.name.toLowerCase();
                 if(!tmpIndexedMap.containsKey(id)){
                     tmpIndexedMap.put(id, new ArrayList<>());
                 }

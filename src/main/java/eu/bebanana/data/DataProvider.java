@@ -18,7 +18,7 @@ public class DataProvider implements DataManager.DataManagerListener {
     }
 
     public List<Live> getLivesFor(String stop, String line) {
-        String key = stop + "-" + line;
+        String key = stop.toLowerCase() + "-" + line.toLowerCase();
         if(indexedLives.containsKey(key)) {
             return indexedLives.get(key);
         } else {
