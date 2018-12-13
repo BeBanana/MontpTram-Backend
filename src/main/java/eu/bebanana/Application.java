@@ -26,18 +26,17 @@ public class Application {
         path("/api", () -> {
             before((request, response) -> securityCheck(request));
 
-            path("/tram", () -> {
-                post("/next", (req, res) -> {
-                    JSONObject body = new JSONObject(req.body());
-                    String stop = body.getString("stop");
-                    String line = body.getString("line");
-                    List<Live> lives = dataProvider.getLivesFor(stop,line);
-                    if(lives.isEmpty()) {
-                        halt(204, "It looks like there is no tram for line " + line + " at " + stop);
-                    }
-                    return new JSONObject(new LivesDto(lives, stop));
-                });
+            post("/next", (req, res) -> {
+                JSONObject body = new JSONObject(req.body());
+                String stop = body.getString("stop");
+                String line = body.getString("line");
+                List<Live> lives = dataProvider.getLivesFor(stop,line);
+                if(lives.isEmpty()) {
+                    halt(204, "It looks like there is no tram for line " + line + " at " + stop);
+                }
+                return new JSONObject(new LivesDto(lives, stop));
             });
+
         });
     }
 
