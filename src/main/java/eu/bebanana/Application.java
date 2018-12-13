@@ -89,8 +89,24 @@ public class Application {
             this.secondNextDelay = Long.valueOf(secondNextDelay / 60).intValue();
         }
 
-        // TODO modify the direction names if needed
+        public void setNextDirection(final String nextDirection) {
+            this.nextDirection = convertDirection(nextDirection);
+        }
 
+        public void setSecondNextDirection(final String secondNextDirection) {
+            this.secondNextDirection = convertDirection(secondNextDirection);
+        }
+
+        private String convertDirection(String direction) {
+            switch (direction) {
+                case "H. DEPARTEMENT":
+                    return "Hôtel du département";
+                case "ND DE SABLASSOU":
+                    return "Notre-dame de sablassou";
+                default:
+                    return direction;
+            }
+        }
     }
 
 }
