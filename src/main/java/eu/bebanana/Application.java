@@ -32,6 +32,9 @@ public class Application {
                     String stop = body.getString("stop");
                     String line = body.getString("line");
                     List<Live> lives = dataProvider.getLivesFor(stop,line);
+                    if(lives.isEmpty()) {
+                        halt(204, "It looks like there is no tram for line " + line + " at " + stop);
+                    }
                     return new JSONObject(new LivesDto(lives, stop));
                 });
             });
@@ -85,6 +88,9 @@ public class Application {
         public void setSecondNextDelay(Long secondNextDelay) {
             this.secondNextDelay = Long.valueOf(secondNextDelay / 60).intValue();
         }
+
+        // TODO modify the direction names if needed
+
     }
 
 }
