@@ -102,6 +102,8 @@ public class Application {
                     return "Hôtel du département";
                 case "ND DE SABLASSOU":
                     return "Notre-dame de sablassou";
+                case "ST-JEAN DE VEDAS":
+                    return "Saint jean de vedas";
                 default:
                     return direction;
             }
