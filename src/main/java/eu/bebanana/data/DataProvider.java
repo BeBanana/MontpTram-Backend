@@ -1,12 +1,14 @@
 package eu.bebanana.data;
 
 import eu.bebanana.Logger;
+import eu.bebanana.models.Line;
 import eu.bebanana.models.Live;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class DataProvider implements DataManager.DataManagerListener {
 
@@ -21,6 +23,16 @@ public class DataProvider implements DataManager.DataManagerListener {
         String key = stop.toLowerCase() + "-" + line.toLowerCase();
         if(indexedLives.containsKey(key)) {
             return indexedLives.get(key);
+        } else {
+            Logger.log("List indexedlives does not contain key: " + key + ".\nHere is the list of keys available: " + indexedLives.keySet());
+            return new ArrayList<>();
+        }
+    }
+
+    public List<Line> getLinesAt(String stop) {
+        String key = stop.toLowerCase();
+        if(indexedLives.containsKey(key)) {
+            return indexedLives.get(key).stream().map(Live::getLine).distinct().collect(Collectors.toList());
         } else {
             Logger.log("List indexedlives does not contain key: " + key + ".\nHere is the list of keys available: " + indexedLives.keySet());
             return new ArrayList<>();

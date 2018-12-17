@@ -1,6 +1,7 @@
 package eu.bebanana;
 
 import eu.bebanana.data.DataProvider;
+import eu.bebanana.models.Line;
 import eu.bebanana.models.Live;
 import lombok.Data;
 import org.json.JSONObject;
@@ -37,6 +38,16 @@ public class Application {
                 return new JSONObject(new LivesDto(lives, stop));
             });
 
+            post("/lines", (req, res) -> {
+                JSONObject body = new JSONObject(req.body());
+                String stop = body.getString("stop");
+                List<Line> lines = dataProvider.getLinesAt(stop);
+                if(lines.isEmpty()) {
+                    halt(204, "It looks like there is no line at: " + stop );
+                }
+                return new JSONObject(new LinesDto(lines));
+            });
+
         });
     }
 
@@ -48,12 +59,23 @@ public class Application {
     }
 
     @Data
+    public static class LinesDto {
+        private List<String> lines;
+
+        public  LinesDto(List<Line> lines) {
+            this.lines = lines.stream().map(Line::getName).collect(Collectors.toList());
+        }
+    }
+
+    @Data
     public static class LivesDto {
         private String station;
+        private String type;
         private List<DirectionDto> directions = new ArrayList<>();
 
         public LivesDto(List<Live> lives, String stationName) {
             this.station = stationName;
+            this.type = lives.get(0).line.type.toString();
             directions.add(getDirectionDto(lives, 0));
             directions.add(getDirectionDto(lives, 1));
         }

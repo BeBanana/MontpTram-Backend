@@ -20,4 +20,15 @@ public enum LineType {
         }
     }
 
+    @Override
+    public String toString() {
+        switch (this) {
+            case tramway:
+                return "tram";
+            case bus:
+                return "bus";
+            default:
+                return "";
+        }
+    }
 }
