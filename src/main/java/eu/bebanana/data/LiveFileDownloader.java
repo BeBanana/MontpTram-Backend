@@ -19,6 +19,7 @@ class LiveFileDownloader {
 
     private ScheduledExecutorService schedulerService;
     private static final Path directory = Paths.get("/tmp/");
+    private final int downloadDelay = 20;
 
     private Listener listener;
 
@@ -53,7 +54,7 @@ class LiveFileDownloader {
         System.out.println("Scheduling new download");
 
         schedulerService = Executors.newSingleThreadScheduledExecutor();
-        schedulerService.schedule(this::update, 60, TimeUnit.SECONDS);
+        schedulerService.schedule(this::update, downloadDelay, TimeUnit.SECONDS);
     }
 
     private void update() {

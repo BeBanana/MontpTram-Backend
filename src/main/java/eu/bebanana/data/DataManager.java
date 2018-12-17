@@ -8,6 +8,7 @@ import eu.bebanana.models.Stop;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,6 +75,12 @@ class DataManager {
         csvReader.readFromFile(new File(filePath.toString()), new CSVReader.Listener() {
             @Override
             public void onNewLine(String[] fields) {
+
+                if(fields.length < 10) {
+                    Logger.report("Csv line too short : " + fields.length + ", contains : " + fields);
+                    return;
+                }
+
                 Optional<Stop> optStop = getStopById(stopList, fields[2]);
                 if(!optStop.isPresent()) {
                     Logger.log("Stop : " + fields[2] + " does not exist");

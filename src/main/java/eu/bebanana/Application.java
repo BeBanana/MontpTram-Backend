@@ -81,11 +81,11 @@ public class Application {
         private Integer secondNextDelay = null; // in minutes
 
         public void setNextDelay(Long nextDelay) {
-            this.nextDelay = Long.valueOf(nextDelay / 60).intValue();
+            this.nextDelay = convertToMinutes(nextDelay);
         }
 
         public void setSecondNextDelay(Long secondNextDelay) {
-            this.secondNextDelay = Long.valueOf(secondNextDelay / 60).intValue();
+            this.secondNextDelay = convertToMinutes(secondNextDelay);
         }
 
         public void setNextDirection(final String nextDirection) {
@@ -94,6 +94,11 @@ public class Application {
 
         public void setSecondNextDirection(final String secondNextDirection) {
             this.secondNextDirection = convertDirection(secondNextDirection);
+        }
+
+        private Integer convertToMinutes(Long delay) {
+            Double d = delay / 60.0;
+            return d.intValue();
         }
 
         private String convertDirection(String direction) {
