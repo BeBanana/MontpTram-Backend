@@ -77,7 +77,7 @@ class DataManager {
             public void onNewLine(String[] fields) {
 
                 if(fields.length < 10) {
-                    Logger.report("Csv line too short : " + fields.length + ", contains : " + fields);
+                    Logger.report("Csv line too short : " + fields.length + ", contains : " + Arrays.toString(fields));
                     return;
                 }
 
