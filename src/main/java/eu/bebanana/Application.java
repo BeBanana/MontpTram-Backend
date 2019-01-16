@@ -31,6 +31,7 @@ public class Application {
                 JSONObject body = new JSONObject(req.body());
                 String stop = body.getString("stop");
                 String line = body.getString("line");
+                Logger.log("Request on /api/next for " + stop + ", " + line);
                 List<Live> lives = dataProvider.getLivesFor(stop,line);
                 if(lives.isEmpty()) {
                     halt(204, "It looks like there is no tram for line " + line + " at " + stop);
@@ -41,6 +42,7 @@ public class Application {
             post("/lines", (req, res) -> {
                 JSONObject body = new JSONObject(req.body());
                 String stop = body.getString("stop");
+                Logger.log("Request on /api/lines for " + stop);
                 List<Line> lines = dataProvider.getLinesAt(stop);
                 if(lines.isEmpty()) {
                     halt(204, "It looks like there is no line at: " + stop );
